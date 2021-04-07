@@ -15,18 +15,28 @@ const App = () => {
   const [ persons, setPersons ] = useState([
     { name: 'Arto Hellas'}
   ]) 
+
   const [ newName, setNewName ] = useState('')
 
+  
+
   const addName = (event) => {
-    event.preventDefault()
+    event.preventDefault()   
+        
+    
 
     const phonebookObject = {
-      name: newName   
-      
+      name: newName         
     }
-    setPersons(persons.concat(phonebookObject))
-    setNewName('')
-    console.log(event.target);
+    const isNameTaken = persons.map(n => n.name === newName)
+    if (isNameTaken.includes(true)) {
+      window.alert(`${newName} is already added to phonebook`)
+    } else {
+      setPersons(persons.concat(phonebookObject))
+      setNewName('')      
+      console.log(isNameTaken);
+    }  
+        
   }
 
   const handleNameChange = (event) => {
@@ -49,7 +59,9 @@ const App = () => {
       {persons.map(list => 
           <ShowPerson key={list.id} name={list.name} /> )}
 
-      <div> debug: {newName} includes() or find ()</div>
+
+
+     
     </div>
   )
 }
