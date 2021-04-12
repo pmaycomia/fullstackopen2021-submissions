@@ -1,19 +1,6 @@
 import React, { useState } from 'react'
+import ShowContact from './component/ShowContact'
 
-
-
-const ShowContact = (props) => {
-  {/* const toShow = props.persons.filter(contact =>  
-    contact.name.toLowerCase().includes(props.filter.toLowerCase())
-  ) */}
-  
-  return (
-    <div>
-    {props.name} {props.number}
-    </div>
-  )
-  
-}
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -25,12 +12,12 @@ const App = () => {
 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
-  const [ newFilter, setNewFilter ] = ('')
+  const [ newFilter, setNewFilter ] = useState('')
 
   
 
-  const addContact = (event) => {
-    event.preventDefault()   
+  const addContact = (e) => {
+    e.preventDefault()   
      
     const phonebookObject = {
       name: newName,  
@@ -43,24 +30,24 @@ const App = () => {
     } else {
       setPersons(persons.concat(phonebookObject))
       setNewName('')  
-      setNewNumber('')    
+      setNewNumber('') 
   
     }  
         
   }
 
-  
 
-  const handleNameChange = (event) => {
-    setNewName(event.target.value)
+
+  const handleNameChange = (e) => {
+    setNewName(e.target.value)
   }
 
-  const handleNumChange = (event) => {
-    setNewNumber(event.target.value)
+  const handleNumChange = (e) => {
+    setNewNumber(e.target.value)
   }
 
-  const handleFilterChange = (event) => {
-    setNewFilter(event.target.value)    
+  const handleFilterChange = (e) => {
+    setNewFilter(e.target.value)    
   }
 
   return (
@@ -68,8 +55,8 @@ const App = () => {
       <h2>Phonebook</h2>
 
       <div>
-        filter shown with <input value={newFilter} onChange={handleFilterChange} />
-        <div>debug: {newFilter} </div>
+        search for person: <input value={newFilter} onChange={handleFilterChange} />
+        <div>debug: {newName} {newFilter} </div>
       </div>
 
       <h3>add a new contact</h3>
@@ -86,8 +73,10 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       
-      {persons.map(n => 
-          <ShowContact key={n.id} name={n.name} number={n.number} persons={persons} /> )}     
+      {persons.filter(person => person.name.toLowerCase().includes(newFilter))
+      .map(n => 
+          <ShowContact key={n.id} name={n.name} number={n.number} persons={persons}        
+          /> )}     
     </div>
   )
 }
