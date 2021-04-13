@@ -2,11 +2,11 @@ import React from 'react'
 
 
 
-const ShowContact = (props) => {
+const ShowContact = ({ name, number }) => {
   
   return (
     <div>
-    {props.name}: {props.number}
+    {name}: {number}
     </div>
   )
   

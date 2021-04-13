@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import ShowContact from './component/ShowContact'
-
+import FilteredContacts from './components/FilteredContacts'
+import AddNewContact from './components/AddNewContact'
+import SearchFilter from './components/SearchFilter'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -23,60 +24,38 @@ const App = () => {
       name: newName,  
       number: newNumber       
     }
-
     
     if (persons.map(n => n.name === newName).includes(true)) {
       window.alert(`${newName} is already added to phonebook`)
     } else {
       setPersons(persons.concat(phonebookObject))
       setNewName('')  
-      setNewNumber('') 
+      setNewNumber('')   
+    }         
+  }
+
+
+
+  const handleNameChange = (e) => setNewName(e.target.value)
   
-    }  
-        
-  }
 
+  const handleNumChange = (e) => setNewNumber(e.target.value)
 
-
-  const handleNameChange = (e) => {
-    setNewName(e.target.value)
-  }
-
-  const handleNumChange = (e) => {
-    setNewNumber(e.target.value)
-  }
-
-  const handleFilterChange = (e) => {
-    setNewFilter(e.target.value)    
-  }
+  const handleFilterChange = (e) => setNewFilter(e.target.value)
 
   return (
     <div>
-      <h2>Phonebook</h2>
-
-      <div>
-        search for person: <input value={newFilter} onChange={handleFilterChange} />
-        <div>debug: {newName} {newFilter} </div>
-      </div>
-
-      <h3>add a new contact</h3>
-      <form onSubmit={addContact}>
-     
-        <div>
-          name: <input value={newName} onChange={handleNameChange} />
-          <br />
-          number: <input value={newNumber} onChange={handleNumChange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
+      <h2>PHONEBOOK</h2>
+      <SearchFilter newFilter={newFilter} handleFilterChange={handleFilterChange} />
       
-      {persons.filter(person => person.name.toLowerCase().includes(newFilter))
-      .map(n => 
-          <ShowContact key={n.id} name={n.name} number={n.number} persons={persons}        
-          /> )}     
+
+      <h3>Add a New Contact</h3>
+      <AddNewContact addContact={addContact} newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumChange={handleNumChange} />
+
+      <h3>Numbers</h3>
+      <FilteredContacts persons={persons} newFilter={newFilter} />
+
+         
     </div>
   )
 }
