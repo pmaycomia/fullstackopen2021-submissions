@@ -6,7 +6,7 @@ const ShowContact = ({ name, number }) => {
   
   return (
     <div>
-    {name}: {number}
+    {name}: {number} 
     </div>
   )
   

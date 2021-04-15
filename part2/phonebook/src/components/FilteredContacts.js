@@ -11,10 +11,12 @@ const FilteredContacts = ({ persons, newFilter }) => {
             .includes(newFilter))
             .map(n => 
             <ShowContact 
-            key={n.id} 
+            key={n.id}             
             name={n.name} 
             number={n.number} 
-            /> )}
+
+            /> 
+            )}
         
         </div>
     )
